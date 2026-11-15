@@ -32,6 +32,21 @@ CPU・画面操作テストはPyBoyのSM83 CPUと標準MBC3を使用しました
 
 PCCへの移動はテスト時だけROMバンク25の空き領域へ短い移動スクリプトをメモリ上で差し込み、コガネの屋外に移動してから実際の入口を歩いて入ります。この移動コードは生成IPSに含みません。
 
+## セーブ相互変換テスト
+
+`python3 -m unittest discover -s tests -v` で既存の3件と相互変換10件の計13テストが通過しています。すべて合成データで、ROMや実ユーザーのセーブは不要です。
+
+実ROMのゲーム上の確認は以下で実行できます。未改造日本語版の64KB SRAMを正しく扱うMBC30対応PyBoyが必要です。前述のfixture条件を使います。
+
+```sh
+python3 tools/verify_save_conversion.py \
+  --original-rom '/path/to/original-jp.gbc' \
+  --mbc3-rom build/candidate.gbc \
+  --fixture '/path/to/test-fixture.ram'
+```
+
+男女×復元元あり／なしの4ケースで、64KB→32KBの読み込み、MBC3での歩行・保存、32KB→64KBの読み込み・保存、再度32KBへ戻して読み込みを確認済みです。進行状況、主人公情報、性別、手持ち、ボックス領域を確認します。通信機能やRTCの機器間引き継ぎは検証していません。結果と画像は既定で `build/conversion-tests/` に生成し、公開対象外です。
+
 ## Ghidra
 
 解析環境：Ghidra 11.4.2、Java 21、GhidraBoyのSM83ローダー。各ツールは別途用意してください。以下はリポジトリ直下で実行する例です。

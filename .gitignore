@@ -5,11 +5,11 @@
 *.[iI][pP][sS]
 *.[bB][pP][sS]
 *.[uU][pP][sS]
-*.sav
-*.srm
-*.ram
-*.rtc
-*.state
+*.[sS][aA][vV]
+*.[sS][rR][mM]
+*.[rR][aA][mM]
+*.[rR][tT][cC]
+*.[sS][tT][aA][tT][eE]
 *.bin
 *.o
 *.map
